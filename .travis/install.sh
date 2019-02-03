@@ -22,8 +22,8 @@ if [[ "$(uname -s)" == 'Darwin' ]]; then
     pip install conan_package_tools
 
 else
-    sudo pip install conan --upgrade
-    sudo pip install conan_package_tools
+    sudo python3 -m pip install conan --upgrade
+    sudo python3 -m pip install conan_package_tools
 
 fi
 
