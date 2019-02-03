@@ -79,48 +79,55 @@ class PocoConan(ConanFile):
                 self.settings.compiler.runtime) else "OFF"
         self.output.info(cmake.definitions)
         os.mkdir(".build")
-        cmake.configure(source_folder="poco", build_folder=".build")
+        cmake.configure(
+            source_folder=os.path.join(self.source_folder, "poco"),
+            build_folder=".build")
         cmake.build()
 
     def package(self):
         # Copy the license files
         self.copy("poco/LICENSE", dst=".", keep_path=False)
         # Typically includes we want to keep_path=True (default)
-        packages = ["CppUnit", "Crypto", "Data", "Data/MySQL", "Data/ODBC", "Data/SQLite",
-                    "Foundation", "JSON", "MongoDB", "Net", "Redis", "Util",
-                    "XML", "Zip"]
+        packages = [
+            "CppUnit", "Crypto", "Data", "Data/MySQL", "Data/ODBC",
+            "Data/SQLite", "Foundation", "JSON", "MongoDB", "Net", "Redis",
+            "Util", "XML", "Zip"
+        ]
         if self.settings.os == "Windows" and self.options.enable_netssl_win:
             packages.append("NetSSL_Win")
         else:
             packages.append("NetSSL_OpenSSL")
         for header in packages:
-            self.copy(pattern="*.h", dst="include", src="poco/%s/include" % header)
+            self.copy(
+                pattern="*.h", dst="include", src="poco/%s/include" % header)
         # But for libs and dlls, we want to avoid intermediate folders
-        self.copy(pattern="*.lib", dst="lib", src=".build/lib", keep_path=False)
-        self.copy(pattern="*.a",   dst="lib", src=".build/lib", keep_path=False)
-        self.copy(pattern="*.dll", dst="bin", src=".build/bin", keep_path=False)
+        self.copy(
+            pattern="*.lib", dst="lib", src=".build/lib", keep_path=False)
+        self.copy(pattern="*.a", dst="lib", src=".build/lib", keep_path=False)
+        self.copy(
+            pattern="*.dll", dst="bin", src=".build/bin", keep_path=False)
         # in linux shared libs are in lib, not bin
-        self.copy(pattern="*.so*", dst="lib", src=".build/lib", keep_path=False, symlinks=True)
-        self.copy(pattern="*.dylib*", dst="lib", src=".build/lib", keep_path=False)
+        self.copy(
+            pattern="*.so*",
+            dst="lib",
+            src=".build/lib",
+            keep_path=False,
+            symlinks=True)
+        self.copy(
+            pattern="*.dylib*", dst="lib", src=".build/lib", keep_path=False)
 
     def package_info(self):
-        libs = [("enable_mongodb", "PocoMongoDB"),
-                ("enable_pdf", "PocoPDF"),
-                ("enable_net", "PocoNet"),
-                ("enable_netssl", "PocoNetSSL"),
+        libs = [("enable_mongodb", "PocoMongoDB"), ("enable_pdf", "PocoPDF"),
+                ("enable_net", "PocoNet"), ("enable_netssl", "PocoNetSSL"),
                 ("enable_netssl_win", "PocoNetSSLWin"),
-                ("enable_crypto", "PocoCrypto"),
-                ("enable_data", "PocoData"),
+                ("enable_crypto", "PocoCrypto"), ("enable_data", "PocoData"),
                 ("enable_data_sqlite", "PocoDataSQLite"),
                 ("enable_data_mysql", "PocoDataMySQL"),
                 ("enable_data_odbc", "PocoDataODBC"),
-                ("enable_sevenzip", "PocoSevenZip"),
-                ("enable_zip", "PocoZip"),
+                ("enable_sevenzip", "PocoSevenZip"), ("enable_zip", "PocoZip"),
                 ("enable_apacheconnector", "PocoApacheConnector"),
-                ("enable_util", "PocoUtil"),
-                ("enable_xml", "PocoXML"),
-                ("enable_json", "PocoJSON"),
-                ("enable_redis", "PocoRedis")]
+                ("enable_util", "PocoUtil"), ("enable_xml", "PocoXML"),
+                ("enable_json", "PocoJSON"), ("enable_redis", "PocoRedis")]
         suffix = str(self.settings.compiler.runtime).lower()  \
                  if self.settings.compiler == "Visual Studio" and not self.options.shared \
                  else ("d" if self.settings.build_type=="Debug" else "")
@@ -134,6 +141,7 @@ class PocoConan(ConanFile):
         if self.settings.os == "Linux":
             self.cpp_info.libs.extend(["pthread", "dl", "rt"])
         if not self.options.shared:
-            self.cpp_info.defines.extend(["POCO_STATIC=ON", "POCO_NO_AUTOMATIC_LIBS"])
+            self.cpp_info.defines.extend(
+                ["POCO_STATIC=ON", "POCO_NO_AUTOMATIC_LIBS"])
             if self.settings.compiler == "Visual Studio":
                 self.cpp_info.libs.extend(["ws2_32", "Iphlpapi", "Crypt32"])

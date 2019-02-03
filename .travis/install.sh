@@ -22,7 +22,7 @@ if [[ "$(uname -s)" == 'Darwin' ]]; then
     pip install conan_package_tools
 
 else
-    sudo pip install conan conan_package_tools --ignore-installed
+    pip install conan conan_package_tools --ignore-installed
 
 fi
 
