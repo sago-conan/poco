@@ -3,7 +3,7 @@ env:
    global:
      - CONAN_REFERENCE: "Poco/1.9.0"
      - CONAN_USERNAME: "sago"
-     - CONAN_LOGIN_USERNAME: "user"
+     - CONAN_LOGIN_USERNAME: "suwei-air"
      - CONAN_CHANNEL: "testing"
      - CONAN_UPLOAD: "https://sago.bintray.com/sago-conan"
 
@@ -14,7 +14,6 @@ linux: &linux
    language: cpp
    compiler:
      - clang
-   python: "3.6"
 osx: &osx
    os: osx
    language: generic

@@ -17,9 +17,14 @@ if [[ "$(uname -s)" == 'Darwin' ]]; then
     pyenv virtualenv 2.7.10 conan
     pyenv rehash
     pyenv activate conan
-fi
 
-pip install conan --upgrade
-pip install conan_package_tools
+    pip install conan --upgrade
+    pip install conan_package_tools
+
+else
+    sudo pip install conan --upgrade
+    sudo pip install conan_package_tools
+
+fi
 
 conan user
