@@ -1,31 +1,35 @@
-
 env:
-   global:
-     - CONAN_REFERENCE: "Poco/1.9.0"
-     - CONAN_USERNAME: "sago"
-     - CONAN_LOGIN_USERNAME: "suwei-air"
-     - CONAN_CHANNEL: "testing"
-     - CONAN_UPLOAD: "https://sago.bintray.com/sago-conan"
+  global:
+    - CONAN_REFERENCE: "Poco/1.9.0"
+    - CONAN_USERNAME: "sago"
+    - CONAN_LOGIN_USERNAME: "suwei-air"
+    - CONAN_CHANNEL: "testing"
+    - CONAN_UPLOAD: "https://sago.bintray.com/sago-conan"
 
 linux: &linux
-   os: linux
-   dist: xenial
-   sudo: required
-   language: cpp
-   compiler:
-     - clang
+  os: linux
+  dist: xenial
+  sudo: required
+  language: python
+  python: 3.7
+  addons:
+    apt:
+      sources:
+        - ubuntu-toolchain-r-test
+        - llvm-toolchain-xenial-7
+      packages:
+        - clang-7
 osx: &osx
-   os: osx
-   language: generic
+  os: osx
+  language: generic
 matrix:
-   include:
+  include:
+    - <<: *linux
+      env: CONAN_CLANG_VERSIONS=7.0
 
-      - <<: *linux
-        env: CONAN_CLANG_VERSIONS=7.0
-
-      - <<: *osx
-        osx_image: xcode10
-        env: CONAN_APPLE_CLANG_VERSIONS=10.0
+    - <<: *osx
+      osx_image: xcode10
+      env: CONAN_APPLE_CLANG_VERSIONS=10.0
 
 install:
   - chmod +x .travis/install.sh

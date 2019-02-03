@@ -1,20 +1,19 @@
 build: false
 
 environment:
-    PYTHON: "C:\\Python37"
+  PYTHON: "C:\\Python37"
 
-    CONAN_REFERENCE: "Poco/1.9.0"
-    CONAN_USERNAME: "sago"
-    CONAN_LOGIN_USERNAME: "suwei-air"
-    CONAN_CHANNEL: "testing"
-    CONAN_UPLOAD: "https://sago.bintray.com/sago-conan"
+  CONAN_REFERENCE: "Poco/1.9.0"
+  CONAN_USERNAME: "sago"
+  CONAN_LOGIN_USERNAME: "suwei-air"
+  CONAN_CHANNEL: "testing"
+  CONAN_UPLOAD: "https://sago.bintray.com/sago-conan"
 
-    matrix:
-        - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-          CONAN_VISUAL_VERSIONS: 14
-        - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-          CONAN_VISUAL_VERSIONS: 15
-
+  matrix:
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      CONAN_VISUAL_VERSIONS: 14
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      CONAN_VISUAL_VERSIONS: 15
 
 install:
   - set PATH=%PATH%;%PYTHON%/Scripts/
