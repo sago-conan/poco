@@ -7,7 +7,7 @@ environment:
   CONAN_USERNAME: "sago"
   CONAN_LOGIN_USERNAME: "suwei-air"
   CONAN_CHANNEL: "testing"
-  CONAN_UPLOAD: "https://sago.bintray.com/sago-conan"
+  CONAN_UPLOAD: "https://api.bintray.com/conan/sago/sago-conan"
 
   matrix:
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
