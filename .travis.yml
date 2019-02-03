@@ -24,10 +24,7 @@ matrix:
         - CONAN_ARCHS="x86_64"
         - CONAN_CLANG_VERSIONS="7.0"
 
-    - os: linux
-      dist: xenial
-      language: android
-      sudo: true
+    - language: android
       android:
         components:
           - tools
