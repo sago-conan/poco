@@ -74,6 +74,14 @@ class PocoConan(ConanFile):
             elif not option_name == "fPIC":
                 cmake.definitions[option_name.
                                   upper()] = "ON" if activated else "OFF"
+        # Cross-compile toolchains
+        if self.settings.os == "Android":
+            cmake.definitions["CMAKE_TOOLCHAIN_FILE"] = os.path.join(
+                os.environ["ANDROID_HOME"],
+                "ndk-bundle/build/cmake/android.toolchain.cmake")
+        elif self.settings.os == "iOS":
+            cmake.definitions["CMAKE_TOOLCHAIN_FILE"] = os.path.join(
+                os.environ["TRAVIS_BUILD_DIR"], "ios.toolchain.cmake")
         self.output.info(cmake.definitions)
         os.mkdir(".build")
         # Build debug & release
@@ -89,8 +97,8 @@ class PocoConan(ConanFile):
                 cmake.build_type = config
                 cmake.configure(source_folder="poco", build_folder=".build")
                 cmake.build()
-                shutil.rmtree("CMakeFiles")
-                os.remove("CMakeCache.txt")
+                shutil.rmtree(".build/CMakeFiles")
+                os.remove(".build/CMakeCache.txt")
 
     def package(self):
         # Copy the license files
