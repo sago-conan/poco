@@ -32,6 +32,8 @@ matrix:
       before_install:
         - echo y | sdkmanager "ndk-bundle"
         - echo y | sdkmanager "cmake;3.10.2.4988404"
+        - virtualenv venv
+        - source venv/bin/activate
         - export CONAN_BASE_PROFILE="$(pwd)/profile/Android.profile"
       env:
         - CONAN_ARCHS="armv7"
