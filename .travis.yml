@@ -11,10 +11,10 @@ linux: &linux
    os: linux
    dist: xenial
    sudo: required
-   language: python
+   language: cpp
+   compiler:
+     - clang
    python: "3.6"
-   services:
-     - docker
 osx: &osx
    os: osx
    language: generic
@@ -22,7 +22,7 @@ matrix:
    include:
 
       - <<: *linux
-        env: CONAN_CLANG_VERSIONS=7.0 CONAN_DOCKER_IMAGE=conanio/clang70
+        env: CONAN_CLANG_VERSIONS=7.0
 
       - <<: *osx
         osx_image: xcode10
