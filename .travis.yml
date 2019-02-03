@@ -35,6 +35,7 @@ matrix:
         - virtualenv venv
         - source venv/bin/activate
         - export CONAN_BASE_PROFILE="$(pwd)/profile/Android.profile"
+        - export PATH="$ANDROID_HOME/cmake/3.10.2.4988404/bin:$PATH"
       env:
         - CONAN_ARCHS="armv7"
         - CONAN_CLANG_VERSIONS="7.0"
