@@ -1,10 +1,11 @@
 env:
   global:
-    - CONAN_REFERENCE: "Poco/1.9.0"
-    - CONAN_USERNAME: "sago"
-    - CONAN_LOGIN_USERNAME: "suwei-air"
-    - CONAN_CHANNEL: "testing"
-    - CONAN_UPLOAD: "https://api.bintray.com/conan/sago/sago-conan"
+    - CONAN_REFERENCE="Poco/1.9.0"
+    - CONAN_USERNAME="sago"
+    - CONAN_LOGIN_USERNAME="suwei-air"
+    - CONAN_CHANNEL="testing"
+    - CONAN_UPLOAD="https://api.bintray.com/conan/sago/sago-conan"
+    - CONAN_ARCHS="x86"
 
 linux: &linux
   os: linux
