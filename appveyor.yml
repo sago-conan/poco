@@ -9,6 +9,7 @@ environment:
   CONAN_CHANNEL: "testing"
   CONAN_UPLOAD: "https://api.bintray.com/conan/sago/sago-conan"
   CONAN_ARCHS: "x86"
+  CONAN_BUILD_TYPES: "Release"
 
   matrix:
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
