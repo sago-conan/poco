@@ -7,6 +7,17 @@ env:
     - CONAN_UPLOAD="https://api.bintray.com/conan/sago/sago-conan"
     - CONAN_BUILD_TYPES="Release"
 
+iOS: &iOS
+  os: osx
+  osx_image: xcode10
+  language: generic
+  before_install:
+    - export CONAN_BASE_PROFILE="$(pwd)/profile/iOS.profile"
+  env:
+    - CONAN_ARCHS="armv7"
+    - CONAN_APPLE_CLANG_VERSIONS="10.0"
+    - CONAN_TOTAL_PAGES=2
+
 matrix:
   include:
     - os: linux
@@ -47,14 +58,10 @@ matrix:
         - CONAN_ARCHS="x86_64"
         - CONAN_APPLE_CLANG_VERSIONS="10.0"
 
-    - os: osx
-      osx_image: xcode10
-      language: generic
-      before_install:
-        - export CONAN_BASE_PROFILE="$(pwd)/profile/iOS.profile"
-      env:
-        - CONAN_ARCHS="armv7"
-        - CONAN_APPLE_CLANG_VERSIONS="10.0"
+    - <<: *iOS
+      env: CONAN_CURRENT_PAGE=1
+    - <<: *iOS
+      env: CONAN_CURRENT_PAGE=2
 
 install:
   - chmod +x .travis/install.sh
