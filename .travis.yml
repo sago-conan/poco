@@ -13,10 +13,6 @@ iOS: &iOS
   language: generic
   before_install:
     - export CONAN_BASE_PROFILE="$(pwd)/profile/iOS.profile"
-  env:
-    - CONAN_ARCHS="armv7"
-    - CONAN_APPLE_CLANG_VERSIONS="10.0"
-    - CONAN_TOTAL_PAGES=2
 
 matrix:
   include:
@@ -59,9 +55,17 @@ matrix:
         - CONAN_APPLE_CLANG_VERSIONS="10.0"
 
     - <<: *iOS
-      env: CONAN_CURRENT_PAGE=1
+      env:
+        - CONAN_ARCHS="armv7"
+        - CONAN_APPLE_CLANG_VERSIONS="10.0"
+        - CONAN_TOTAL_PAGES=2
+        - CONAN_CURRENT_PAGE=1
     - <<: *iOS
-      env: CONAN_CURRENT_PAGE=2
+      env:
+        - CONAN_ARCHS="armv7"
+        - CONAN_APPLE_CLANG_VERSIONS="10.0"
+        - CONAN_TOTAL_PAGES=2
+        - CONAN_CURRENT_PAGE=2
 
 install:
   - chmod +x .travis/install.sh
